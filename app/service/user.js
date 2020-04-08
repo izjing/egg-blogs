@@ -13,8 +13,7 @@ class UserService extends Service {
       res.code = -1;
       res.msg = '用户已存在';
     } else {
-      const result = await ctx.model.User.create(signupMsg);
-      res.data = result;
+      res.data = await ctx.model.User.create(signupMsg);
       res.code = 1;
       res.msg = '注册成功';
     }
@@ -33,26 +32,19 @@ class UserService extends Service {
       res.msg = '用户不存在,请前去注册';
       res.data = {};
     } else {
-      const result = await ctx.model.User.findOne(signinMsg, (e, d) => d);
+      const result = await ctx.model.User.findOne(signinMsg, { name: 1, userName: 1 }, (e, d) => d);
       if (!result) {
         res.code = -1;
         res.msg = '用户信息不正确';
         res.data = {};
       } else {
-        // const token = JWT.sign({
-        //   userName: result.userName,
-        // },
-        // this.config.jwt.secret, {
-        //   expiresIn: 60 * 60,
-        // });
         const token = app.jwt.sign({
           userName: result.userName,
+          id: result._id,
         }, app.config.jwt.secret, {
-          expiresIn: 60 * 60,
+          expiresIn: 60 * 60 * 24,
         });
-        res.data = {
-          name: result.name,
-        };
+        res.data = result;
 
         res.code = 1;
         res.msg = '登录成功';
