@@ -2,14 +2,12 @@
 module.exports = options => {
   return async function jwt(ctx, next) {
     const token = ctx.request.header.authorization;
-    let decode;
-    console.log(token, 789);
     if (token) {
       try {
         // 解码token
-        decode = ctx.app.jwt.verify(token, options.secret);
+        const decode = ctx.app.jwt.verify(token, options.secret);
+        ctx.state.decode = decode;
         await next();
-        console.log(decode);
       } catch (error) {
         ctx.status = 200;
         ctx.body = {
@@ -21,7 +19,7 @@ module.exports = options => {
     } else {
       ctx.status = 200;
       ctx.body = {
-        msg: '没有token',
+        msg: '请您登录后重试',
         code: 0,
       };
       return;
