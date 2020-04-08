@@ -12,8 +12,10 @@ module.exports = app => {
   router.post('/wenzhang', controller.wenzhang.wenzhangup);
   router.get('/findwenzhang', controller.wenzhang.findwenzhang);
   router.get('/findOneArticle', controller.wenzhang.findOneArticle);
+  // 点赞
   router.post('/dianzan', jwt, controller.dianzan.dianzanup);
   router.post('/finddianzan', controller.dianzan.finddianzan);
+  router.get('/findAllZan', controller.dianzan.findAllZan);
   // 添加说说
   router.post('/addAbout', jwt, controller.about.addAbout);
   router.post('/findAbout', controller.about.findAbout);
