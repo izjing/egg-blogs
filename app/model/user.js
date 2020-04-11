@@ -13,8 +13,16 @@ module.exports = app => {
     userPass: {
       type: String,
     },
+    super: {
+      type: Number, // 1.超级管理员 2. 普通用户
+      default: 2,
+    },
     userEmail: {
       type: String,
+    },
+    createDate: {
+      type: Date,
+      default: Date.now,
     },
 
   });

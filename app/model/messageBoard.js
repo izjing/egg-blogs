@@ -3,7 +3,7 @@ module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
   const messageBoardtSchema = new Schema({
-    userName: {
+    name: {
       type: String,
     },
     id: {

@@ -2,7 +2,6 @@
 module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
-  // 按照mock的数据，有四个字段：name/age/sex/job lastTime是用来标记最后的更改时间
   const UserSchema = new Schema({
     id: {
       type: Schema.Types.ObjectId,

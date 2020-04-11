@@ -3,7 +3,7 @@ module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
   const AboutSchema = new Schema({
-    userName: {
+    name: {
       type: String,
     },
     content: {

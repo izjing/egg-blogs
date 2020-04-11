@@ -15,7 +15,7 @@ module.exports = app => {
     imgUrl: {
       type: String,
     },
-    articleCreate: {
+    createDate: {
       type: Date,
       default: Date.now,
     },
