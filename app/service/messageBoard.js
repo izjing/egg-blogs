@@ -35,6 +35,7 @@ class MessageBoardService extends Service {
         content: '$content',
         time: { $dateToString: { format: '%Y-%m-%d %H:%M', date: { $add: [ '$createDate', 28800000 ] } } },
         dianzan: { $size: '$dianzan' },
+        isZan: { $in: [ page.userName, '$dianzan.userName' ] },
       },
 
     },
