@@ -39,7 +39,7 @@ class UserService extends Service {
         content: '$content',
         describe: '$describe',
         imgUrl: '$imgUrl',
-        time: { $dateToString: { format: '%Y-%m-%d %H:%M', date: { $add: [ '$articleCreate', 28800000 ] } } },
+        time: { $dateToString: { format: '%Y-%m-%d %H:%M', date: { $add: [ '$createDate', 28800000 ] } } },
         dianzan: { $size: '$dianzan' },
       },
 
@@ -91,7 +91,7 @@ class UserService extends Service {
         title: '$title',
         content: '$content',
         describe: '$describe',
-        time: { $dateToString: { format: '%Y-%m-%d %H:%M', date: { $add: [ '$articleCreate', 28800000 ] } } },
+        time: { $dateToString: { format: '%Y-%m-%d %H:%M', date: { $add: [ '$createDate', 28800000 ] } } },
         dianzan: { $size: '$dianzan' },
       },
     },

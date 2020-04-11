@@ -7,7 +7,7 @@ class AboutService extends Service {
     const { ctx } = this;
     const res = {};
     const result = await ctx.model.About.create({
-      userName: ctx.state.decode.userName,
+      name: ctx.state.decode.name,
       content: obj.content,
     });
     res.data = result;
@@ -29,9 +29,12 @@ class AboutService extends Service {
         as: 'dianzan',
       },
     },
+    // {
+    //   $match: { _id: app.mongoose.Types.ObjectId(page.id) },
+    // },
     {
       $project: {
-        userName: '$userName',
+        name: '$name',
         content: '$content',
         time: { $dateToString: { format: '%Y-%m-%d %H:%M', date: { $add: [ '$createDate', 28800000 ] } } },
         dianzan: { $size: '$dianzan' },

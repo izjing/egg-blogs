@@ -7,7 +7,7 @@ class MessageBoardService extends Service {
     const { ctx } = this;
     const res = {};
     const result = await ctx.model.MessageBoard.create({
-      userName: ctx.state.decode.userName,
+      name: ctx.state.decode.name,
       id: ctx.state.decode.id,
       content: obj.content,
     });
@@ -31,7 +31,7 @@ class MessageBoardService extends Service {
     },
     {
       $project: {
-        userName: '$userName',
+        name: '$name',
         content: '$content',
         time: { $dateToString: { format: '%Y-%m-%d %H:%M', date: { $add: [ '$createDate', 28800000 ] } } },
         dianzan: { $size: '$dianzan' },

@@ -14,6 +14,10 @@ class UserService extends Service {
       res.msg = '用户已存在';
     } else {
       res.data = await ctx.model.User.create(signupMsg);
+      // res.data = await ctx.model.User.create({
+      //   ...signupMsg,
+      //   super: 1,
+      // });
       res.code = 1;
       res.msg = '注册成功';
     }
@@ -32,7 +36,7 @@ class UserService extends Service {
       res.msg = '用户不存在,请前去注册';
       res.data = {};
     } else {
-      const result = await ctx.model.User.findOne(signinMsg, { name: 1, userName: 1 }, (e, d) => d);
+      const result = await ctx.model.User.findOne(signinMsg, { name: 1, userName: 1, super: 1 }, (e, d) => d);
       if (!result) {
         res.code = -1;
         res.msg = '用户信息不正确';
@@ -41,6 +45,7 @@ class UserService extends Service {
         const token = app.jwt.sign({
           userName: result.userName,
           id: result._id,
+          name: result.name,
         }, app.config.jwt.secret, {
           expiresIn: 60 * 60 * 24,
         });
