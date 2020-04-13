@@ -6,20 +6,50 @@ class UserService extends Service {
   async signup(signupMsg) {
     const { ctx } = this;
     const res = {};
+    const authCode = await ctx.model.AuthCode.findOne({
+      userName: signupMsg.userName,
+      email: signupMsg.userEmail,
+    }).sort({ _id: -1 }).limit(1);
+    // 判断验证码是否过期
+    if ((new Date().getTime() - authCode.createDate.getTime()) > 600000) {
+      res.code = 0;
+      res.msg = '验证码已过期，请重新获取';
+      return res;
+    }
+    // 判断验证码是否正确
+    if ((authCode && authCode.authCode) !== +signupMsg.authCode) {
+      res.code = 0;
+      res.msg = '验证码错误';
+      return res;
+    }
+    // 查询用户名是否存在
     const queryResult = await ctx.model.User.findOne({
       userName: signupMsg.userName,
     });
+    // 判断用户名是否存在
     if (queryResult) {
       res.code = -1;
-      res.msg = '用户已存在';
+      res.msg = '账号已存在';
     } else {
-      res.data = await ctx.model.User.create(signupMsg);
-      // res.data = await ctx.model.User.create({
-      //   ...signupMsg,
-      //   super: 1,
-      // });
-      res.code = 1;
-      res.msg = '注册成功';
+      // 查询用户昵称是否存在
+      const isName = await ctx.model.User.findOne({
+        name: signupMsg.name,
+      });
+      // 判断用户昵称是否存在
+      if (isName) {
+        res.code = -1;
+        res.msg = '昵称已存在';
+      } else {
+        // 创建用户
+        res.data = await ctx.model.User.create(signupMsg);
+        // 超级权限
+        // res.data = await ctx.model.User.create({
+        //   ...signupMsg,
+        //   super: 1,
+        // });
+        res.code = 1;
+        res.msg = '注册成功';
+      }
     }
     return res;
   }
@@ -32,13 +62,13 @@ class UserService extends Service {
       userName: signinMsg.userName,
     });
     if (!queryResult) {
-      res.code = -2;
+      res.code = 0;
       res.msg = '用户不存在,请前去注册';
       res.data = {};
     } else {
       const result = await ctx.model.User.findOne(signinMsg, { name: 1, userName: 1, super: 1 }, (e, d) => d);
       if (!result) {
-        res.code = -1;
+        res.code = 0;
         res.msg = '用户信息不正确';
         res.data = {};
       } else {

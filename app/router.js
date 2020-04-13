@@ -9,6 +9,7 @@ module.exports = app => {
   // router.get('/', controller.home.index);
   router.post('/signup', controller.home.signup);
   router.post('/login', controller.home.login);
+  router.post('/loginMail', controller.home.loginMail);
   router.post('/wenzhang', controller.wenzhang.wenzhangup);
   router.get('/findwenzhang', controller.wenzhang.findwenzhang);
   router.get('/findOneArticle', controller.wenzhang.findOneArticle);
