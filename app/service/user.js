@@ -90,8 +90,6 @@ class UserService extends Service {
   }
   // 查询用户信息
   async findUser(userMsg) {
-    console.log(userMsg, 88888);
-
     const { ctx } = this;
     const res = {};
     const result = await ctx.model.User.findOne(userMsg);

@@ -42,7 +42,7 @@ module.exports = {
       to: body.email, // 接收者,可以同时发送多个,以逗号隔开
       subject: 'izjing博客验证码', // 标题
       // text: '测试内容', // 文本
-      html: `<h2>验证码：${body.num}</h2><h3>有效期10分钟</h3>`,
+      html: `<h2>${body.num}</h2><span>有效期10分钟</span>`,
     };
 
     // 调用函数，发送邮件
@@ -50,6 +50,7 @@ module.exports = {
       await transporter.sendMail(mailOptions);
       return true;
     } catch (e) {
+      console.log(e);
       return false;
     }
 

@@ -33,6 +33,7 @@ class HomeController extends Controller {
       num,
       email: body.email,
     });
+    console.log(res, 999);
     // 邮件是否发送成功
     if (res) {
       await ctx.model.AuthCode.create({
