@@ -35,16 +35,17 @@ module.exports = appInfo => {
     domainWhiteList: [ 'http://localhost:3000' ],
   };
   // 配置跨域
-  config.cors = {
-    origin: '*',
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
-  };
+  // config.cors = {
+  //   origin: 'http://localhost:3000',
+  //   credentials: true,
+  //   allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  // };
 
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
     mongoose: {
-      url: 'mongodb://test:123456@106.54.204.40:27017/test',
+      url: 'mongodb://izjing:652541xu@106.54.204.40:27017/izjingblogs',
       options: {
         useUnifiedTopology: true,
       },
