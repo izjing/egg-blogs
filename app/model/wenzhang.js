@@ -6,6 +6,9 @@ module.exports = app => {
     title: {
       type: String,
     },
+    name: {
+      type: String,
+    },
     content: {
       type: String,
     },

@@ -13,7 +13,10 @@ class UserService extends Service {
       res.code = -1;
       res.msg = '文章已存在';
     } else {
-      const result = await ctx.model.Wenzhang.create(signupMsg);
+      const result = await ctx.model.Wenzhang.create({
+        ...signupMsg,
+        name: ctx.state.decode.name,
+      });
       res.data = result;
       res.code = 1;
       res.msg = '发表成功';
@@ -36,6 +39,7 @@ class UserService extends Service {
     {
       $project: {
         title: '$title',
+        name: '$name',
         content: '$content',
         describe: '$describe',
         imgUrl: '$imgUrl',
