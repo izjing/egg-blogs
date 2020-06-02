@@ -80,7 +80,10 @@ class UserService extends Service {
           expiresIn: 60 * 60 * 24,
         });
         res.data = result;
-
+        // ctx.cookies.set('count', 'aaa', {
+        //   httpOnly: false,
+        //   signed: false,
+        // });
         res.code = 1;
         res.msg = '登录成功';
         res.token = token;
