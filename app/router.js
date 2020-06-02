@@ -7,7 +7,7 @@ module.exports = app => {
   const { router, controller } = app;
   const jwt = app.middleware.jwt(app.config.jwt);
   // router.get('/', controller.home.index);
-  router.post('/api/api/signup', controller.home.signup);
+  router.post('/api/signup', controller.home.signup);
   router.post('/api/login', controller.home.login);
   router.post('/api/loginMail', controller.home.loginMail);
   // 文章
